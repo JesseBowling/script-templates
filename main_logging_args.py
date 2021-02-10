@@ -28,7 +28,7 @@ def read_config(fn):
 def main():
 
     parser = argparse.ArgumentParser(
-        description='Hit all the places for all the info, write out a CSV file of output (or JSON)',
+        description='Template Description',
         epilog='http://xkcd.com/353/')
     parser.add_argument('-d', '--debug', action="store_true", dest='debug',
                         default=False,
@@ -42,7 +42,11 @@ def main():
     if options.debug:
         logger.setLevel(logging.DEBUG)
 
-    config = read_config(options.conffile)
+    try:
+        config = read_config(options.conffile)
+    except Exception as e:
+        logger.error('Failure to read conffile: {}'.format(e))
+        exit(1)
 
 if __name__ == '__main__':
     main()
